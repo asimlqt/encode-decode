@@ -24,19 +24,20 @@ class Base64Url implements Encodable, Decodable
 			throw new DecodingException("data must be a string");
 		}
 
-	    $str = str_replace(['-', '_'], ['+', '/'], $data);
-	    
-	    switch (strlen($str)%4) {
-	    	case 0: break;
-			case 2: $str .= "=="; break;
-			case 3: $str .= "="; break;
-			default: throw new DecodingException("Error decoding");
-	    }
+		$result = base64_decode(
+			str_pad(
+				strtr($data, '-_', '+/'),
+				strlen($data) % 4,
+				'=',
+				STR_PAD_RIGHT
+			)
+		);
 
-	    if ($result = base64_decode($str) === false) {
+	    if ($result === false) {
 	    	throw new DecodingException("Unable to decode data");	
 	    }
 
 	    return $result;
 	}
+	
 }
