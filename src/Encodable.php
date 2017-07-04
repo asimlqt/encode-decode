@@ -2,7 +2,20 @@
 
 namespace Asimlqt\EncodeDecode;
 
+/**
+ * Encodable
+ *
+ * @author Asim Liaquat <asimlqt22@gmail.com>
+ */
 interface Encodable
 {
-	public function encode($data);
+    /**
+     *
+     * @param mixed $data
+     *
+     * @return mixed
+     *
+     * @throws EncodingException
+     */
+    public function encode($data);
 }
